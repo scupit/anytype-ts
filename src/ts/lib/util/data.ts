@@ -1023,7 +1023,7 @@ class UtilData {
 						});
 
 						analytics.event('CreateAccount', { middleTime: message.middleTime });
-						analytics.event('CreateSpace', { middleTime: message.middleTime, usecase: I.Usecase.GetStarted });
+						analytics.event('CreateSpace', { middleTime: message.middleTime, usecase: I.Usecase.GetStarted, uxType: I.SpaceUxType.Data });
 					});
 				});
 			});
@@ -1252,6 +1252,14 @@ class UtilData {
 		const tier = this.getMembershipTier(membership.tier);
 
 		return !tier?.namesCount && this.isAnytypeNetwork();
+	};
+
+	checkIsArchived (id: string): boolean {
+		return S.Record.getRecordIds(J.Constant.subId.archived, '').includes(id);
+	};
+
+	checkIsDeleted (id: string): boolean {
+		return S.Record.getRecordIds(J.Constant.subId.deleted, '').includes(id);
 	};
 
 };
